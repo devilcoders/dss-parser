@@ -29,34 +29,27 @@ class DssParser
     lines.each do |line_of_css|
       line_of_css.strip!
 
-      puts ""
-      puts line_of_css
-
       if commented_line?(line_of_css, in_comment)
-        puts "true"
         in_comment = true
         current_comment.push "#{line_of_css}"
-        puts line_of_css.size
         if line_of_css.size == 0 || line_of_css.end_with?('*/')
           in_comment = false
-          puts 'end of comments'
         end
       else
-        puts "false"
         in_comment = false
-        comment_blocks.push current_comment if current_comment.size > 0
+        comment_blocks.push current_comment if is_dss_comment?(current_comment)
         current_comment = []
       end
     end
 
-    puts comment_blocks.inspect
-
-  comment_blocks
-    # Remove comments which do not fit DSS syntax
-    #comment_blocks.select { |comment| comment.any? { |s| s.downcase.include? "@name" } }
+    comment_blocks
   end
 
   private
+
+  def is_dss_comment?(comment)
+    comment.any? { |line| line.downcase.include?("@name") || line.downcase.include?("@mixin") }
+  end
 
   def commented_line?(line, in_comment)
     if css_comment?(line) || scss_comment?(line) || in_comment == true

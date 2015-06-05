@@ -1,5 +1,3 @@
-// A non dss comment
-
 //
 // @name Text Input
 // @description Style for the full-width class
@@ -21,5 +19,35 @@ input[type="text"] {
   }
 }
 
+// This
+// is
+// not
+// a
+// dss
+// comment
 
+.non-documented-class {
+
+}
+
+//
+// @name Submit Input
+// @description Style for the full-width class
+// @section Forms.Inputs
+//
+// @state :disabled - Dims the button when disabled.
+// @state .primary - Indicates button is the primary action.
+// @state .smaller - A smaller button
+//
+// @markup
+//   <button>markup<button>
+//
+
+input[type="submit"] {
+  max-width: 150px;
+
+  .full-width {
+    width:100%;
+  }
+}
 

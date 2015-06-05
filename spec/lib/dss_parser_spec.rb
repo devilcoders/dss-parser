@@ -7,7 +7,7 @@ describe DssParser do
       css_files = parser.find_css_files
 
       expect(css_files).to be_instance_of Array
-      expect(css_files.size).to eq 2 
+      expect(css_files.size).to eq 2
     end
   end
 
@@ -16,7 +16,7 @@ describe DssParser do
       parser = DssParser.new("#{File.expand_path('../..', __FILE__)}/fixtures/")
       comments = parser.get_comments
 
-      expect(comments.size).to eq 1
+      expect(comments.size).to eq 4
     end
   end
 end
