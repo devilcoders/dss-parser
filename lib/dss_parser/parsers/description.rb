@@ -2,7 +2,7 @@ class DssParser
   class Parser
     class Description
       def self.parse(lines)
-        temp_d = []
+        description = []
         in_description = false
 
         lines.each do |line|
@@ -14,16 +14,16 @@ class DssParser
             type, content = line.split(" ", 2)
             if type == "@description"
               in_description = true
-              temp_d.push content
+              description.push content
             end
           else
             if in_description == true
-              temp_d.push line
+              description.push line
             end
           end
         end
 
-        return {description: temp_d.join("\n")}
+        return {description: description.join("\n")}
       end
     end
   end

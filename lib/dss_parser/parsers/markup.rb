@@ -2,7 +2,7 @@ class DssParser
   class Parser
     class Markup
       def self.parse(lines)
-        temp_d = []
+        markup = []
         in_markup = false
 
         lines.each do |line|
@@ -14,16 +14,16 @@ class DssParser
             type, content = line.split(" ", 2)
             if type == "@markup"
               in_markup = true
-              temp_d.push content
+              markup.push content
             end
           else
             if in_markup == true
-              temp_d.push line
+              markup.push line
             end
           end
         end
 
-        return {markup: temp_d.join("\n").gsub(/^\n/, '')}
+        return {markup: markup.join("\n").gsub(/^\n/, '')}
       end
     end
   end

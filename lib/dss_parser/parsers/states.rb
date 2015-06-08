@@ -2,7 +2,7 @@ class DssParser
   class Parser
     class States
       def self.parse(lines)
-        temp_d = []
+        states = []
 
         lines.each do |line|
           type, content = line.split(" ", 2)
@@ -10,11 +10,11 @@ class DssParser
           if type == "@state"
             name, description = content.split("-", 2)
 
-            temp_d.push({name: name.strip, description: description.strip})
+            states.push({name: name.strip, description: description.strip})
           end
         end
 
-        return {states: temp_d}
+        return {states: states}
       end
     end
   end
