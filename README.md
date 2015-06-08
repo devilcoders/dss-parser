@@ -1,4 +1,4 @@
-# Dss::Parser
+# DSS Parser for Ruby
 
 A parser for DSS comments in CSS.
 
