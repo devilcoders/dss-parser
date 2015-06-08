@@ -1,5 +1,6 @@
 PARSER_PATH = "#{File.expand_path('../..', __FILE__)}/lib/dss_parser/parsers/*.rb"
 
+require 'ostruct'
 require "dss_parser/version"
 Dir[PARSER_PATH].each {|file| require file }
 
@@ -16,7 +17,6 @@ class DssParser
 
   def get_dss
     comments = []
-    dss = []
 
     find_css_files.each do |file_path|
       css_file = IO.read(file_path)
@@ -47,7 +47,7 @@ class DssParser
       parsed_content = parser.parse(comment)
       dss.push parsed_content unless parsed_content.nil?
     end
-    dss.reduce({}, :merge)
+    OpenStruct.new(dss.reduce({}, :merge))
   end
 
   def find_css_files

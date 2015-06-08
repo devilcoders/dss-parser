@@ -3,6 +3,7 @@ class DssParser
     class Variables
       def self.parse(lines)
         variables = []
+        Struct.new("Variable", :name, :description) unless defined?(Struct::Variable)
 
         lines.each do |line|
           type, content = line.split(" ", 2)
@@ -10,7 +11,7 @@ class DssParser
           if type == "@variable"
             name, description = content.split("-", 2)
 
-            variables.push({name: name.strip, description: description.strip})
+            variables.push(Struct::Variable.new(name.strip, description.strip))
           end
         end
 
