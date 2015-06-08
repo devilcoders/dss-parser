@@ -1,0 +1,13 @@
+/* @name Big Button
+ * @description A big button!
+ *
+ * @markup
+ *   <button class="big"></button>
+ *
+ */
+
+button.big {
+  font-size: 120px;
+  background-color: yellow;
+  color: red;
+}

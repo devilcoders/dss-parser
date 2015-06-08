@@ -1,16 +1,28 @@
 require 'spec_helper'
 
 describe DssParser do
+  describe '#initialize' do
+    it 'returns an error if the directory provided does not exist' do
+      expect { DssParser.new('/tmp/zzz') }.to raise_error DssParser::NotFound
+    end
+
+    it 'returns an error if the parameter provided is not a directory' do
+      expect {
+        DssParser.new(File.expand_path('./spec/fixtures/not_a_directory'))
+      }.to raise_error DssParser::NotADirectory
+    end
+  end
+
   describe '#get_comments' do
     it 'finds comments in css files' do
-      parser = DssParser.new("#{File.expand_path('../..', __FILE__)}/fixtures/")
+      parser = DssParser.new(File.expand_path('./spec/fixtures/standard'))
       comments = parser.get_dss
 
       expect(comments.size).to eq 4
     end
 
     it 'finds dss attributes in dss comments' do
-      parser = DssParser.new("#{File.expand_path('../..', __FILE__)}/fixtures/")
+      parser = DssParser.new(File.expand_path('./spec/fixtures/standard'))
       comments = parser.get_dss
 
       mixin = comments[0]
@@ -29,5 +41,12 @@ describe DssParser do
       expect(mixin.variables.first.description).to eq "A hex color at the top of the gradient"
 
     end
+  end
+
+  it 'finds DSS comments within nested folders' do
+    parser = DssParser.new(File.expand_path('./spec/fixtures/nested'))
+    comments = parser.get_dss
+
+    expect(comments.size).to eq 3
   end
 end

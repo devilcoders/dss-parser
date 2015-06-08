@@ -1,11 +1,16 @@
 PARSER_PATH = "#{File.expand_path('../..', __FILE__)}/lib/dss_parser/parsers/*.rb"
 
 require 'ostruct'
-require "dss_parser/version"
+require_relative './dss_parser/version'
+require_relative './dss_parser/exceptions'
+
 Dir[PARSER_PATH].each {|file| require file }
 
 class DssParser
   def initialize(stylesheet_path)
+    raise DssParser::NotFound unless File.exist?(stylesheet_path)
+    raise DssParser::NotADirectory unless File.directory?(stylesheet_path)
+
     @stylesheet_path = stylesheet_path
     @parsers = [DssParser::Parser::Name,
                 DssParser::Parser::Description,
@@ -51,7 +56,7 @@ class DssParser
   end
 
   def find_css_files
-    Dir.glob("#{@stylesheet_path}**/*.css*")
+    Dir.glob("#{@stylesheet_path}/**/*.css*")
   end
 
   def find_sass_comments(lines)

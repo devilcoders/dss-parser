@@ -1,0 +1,17 @@
+body {
+  background-color: #fff;
+}
+
+/*
+ * @name Ugly
+ * @description The world's ugliest widget
+ *
+ * @markup
+ *   <div class="ugly-widget"></div>
+ */
+
+.ugly-widget {
+  background-color: red;
+  color: #fff;
+  font-size: 36px;
+}
