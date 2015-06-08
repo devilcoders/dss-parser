@@ -1,5 +1,5 @@
 /**
- * @Mixin Gradient($Start, $End)
+ * @name Gradient($Start, $End)
  * @description Add a gradient to element
  *
  * @variable $Start - A hex color at the top of the gradient
@@ -14,19 +14,20 @@
 /* A non dss comment */
 
 /*
- @name Text Input
- @description Style for the full-width class
- @section Forms.Inputs
+ @name Button
+ @description Style for a button
+ this is a multiline description
+ @section Forms.Buttons
 
  @state :disabled - Dims the button when disabled.
  @state .primary - Indicates button is the primary action.
  @state .smaller - A smaller button
 
  @markup
-   <button>markup<button>
+   <button>markup</button>
 */
 
-input[type="text"] {
+button {
   max-width: 150px;
 
   .full-width {
