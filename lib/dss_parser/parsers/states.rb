@@ -9,7 +9,7 @@ class DssParser
           type, content = line.split(" ", 2)
 
           if type == "@state"
-            name, description = content.split("-", 2)
+            name, description = content.split(" - ", 2)
 
             states.push(Struct::State.new(name.strip, description.strip))
           end

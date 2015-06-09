@@ -41,6 +41,18 @@ describe DssParser do
       expect(mixin.variables.first.description).to eq "A hex color at the top of the gradient"
 
     end
+
+    it 'allows dashes in class names' do
+      parser = DssParser.new(File.expand_path('./spec/fixtures/standard'))
+      comments = parser.get_dss
+
+      dss_button = comments[3]
+
+      dashed_state = dss_button.states.last
+
+      expect(dashed_state.name).to eq ".even-smaller"
+      expect(dashed_state.description).to eq "even smaller button"
+    end
   end
 
   it 'finds DSS comments within nested folders' do
