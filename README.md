@@ -13,7 +13,7 @@ This has a couple of additional parsers beyond the DSS spec
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'dss-parser'
+gem 'dss_parser'
 ```
 
 And then execute:
