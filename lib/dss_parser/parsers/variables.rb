@@ -3,19 +3,20 @@ class DssParser
     class Variables
       def self.parse(lines)
         variables = []
-        Struct.new("Variable", :name, :description) unless defined?(Struct::Variable)
+        Struct.new('Variable', :name) unless defined?(Struct::Variable)
 
         lines.each do |line|
-          type, content = line.split(" ", 2)
+          type, content = line.split(' ', 2)
 
-          if type == "@variable"
-            name, description = content.split("-", 2)
-
-            variables.push(Struct::Variable.new(name.strip, description.strip))
+          if type == '@variables'
+            items = content.split(',')
+            items.each do |item|
+              variables.push(Struct::Variable.new(item.strip))
+            end
           end
         end
 
-        return {variables: variables}
+        { variables: variables }
       end
     end
   end

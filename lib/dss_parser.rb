@@ -56,7 +56,7 @@ class DssParser
   end
 
   def find_css_files
-    Dir.glob("#{@stylesheet_path}/**/*.css*")
+    Dir.glob("#{@stylesheet_path}/**/*.?css*")
   end
 
   def find_sass_comments(lines)
@@ -65,15 +65,11 @@ class DssParser
     comment_blocks = []
 
     lines.each do |line_of_css|
-      line_of_css.strip!
-
       if scss_comment?(line_of_css) || in_comment == true
         in_comment = true
 
         current_comment.push line_of_css
-        unless line_of_css.start_with?('//')
-          in_comment = false
-        end
+        in_comment = false unless line_of_css.start_with?('//')
       else
         in_comment = false
         comment_blocks.push current_comment if is_dss_comment?(current_comment)
@@ -90,14 +86,10 @@ class DssParser
     comment_blocks = []
 
     lines.each do |line_of_css|
-      line_of_css.strip!
-
       if css_comment?(line_of_css) || in_comment == true
         in_comment = true
         current_comment.push line_of_css
-        if line_of_css.end_with?('*/')
-          in_comment = false
-        end
+        in_comment = false if line_of_css.end_with?('*/')
       else
         in_comment = false
         comment_blocks.push current_comment if is_dss_comment?(current_comment)
@@ -122,14 +114,10 @@ class DssParser
 
   def strip_whitespace(comment_blocks)
     comment_blocks.each do |comment|
-      comment.map!{ |c| c.gsub(/^\/\//, '') }
-      comment.map!{ |c| c.gsub(/^\/\*/, '') }
-      comment.map!{ |c| c.gsub(/^\*\//, '') }
-      comment.map!{ |c| c.gsub(/^\*/, '') }
-      comment.map!{ |c| c.strip }
-      comment.reject!{ |c| c.size < 1 }
+      comment.map! { |c| c.gsub(/^\/\//, '') }
+      comment.map! { |c| c.gsub(/^\/\*/, '') }
+      comment.map! { |c| c.gsub(/^\*\//, '') }
+      comment.map! { |c| c.gsub(/^\*/, '') }
     end
-
-    comment_blocks.reject{ |c| c.size < 1 }
   end
 end

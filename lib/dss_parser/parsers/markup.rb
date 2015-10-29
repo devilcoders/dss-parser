@@ -6,24 +6,22 @@ class DssParser
         in_markup = false
 
         lines.each do |line|
-          if line.start_with?("@") && line !~ /^@markup/  && in_markup
+          if line.include?('@') && line !~ /^@markup/ && in_markup
             in_description = false
           end
 
-          if line.start_with?("@")
-            type, content = line.split(" ", 2)
-            if type == "@markup"
+          if line.include?('@')
+            type, content = line.split(' ', 2)
+            if type == '@markup'
               in_markup = true
               markup.push content
             end
           else
-            if in_markup == true
-              markup.push line
-            end
+            markup.push line if in_markup == true
           end
         end
 
-        return {markup: markup.join("\n").gsub(/^\n/, '')}
+        { markup: markup.join("\n") }
       end
     end
   end
